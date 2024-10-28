@@ -32,7 +32,8 @@
 
 SELECT
       manager_id
-    , (ARRAY_AGG(name) ORDER BY employee_id ASC) AS employee_name
-FROM employee
+    , ARRAY_AGG( CONCAT(name, ' (', id, ')') ORDER BY id ASC) AS employee_names -- Use ARRAY_AGG() after concatenating
+FROM employees
+WHERE manager_id IS NOT NULL
 GROUP BY manager_id
 ORDER BY manager_id ASC
