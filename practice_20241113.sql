@@ -22,11 +22,23 @@
 
 */
 
-SELECT
-      ROW_NUMBER() OVER (ORDER BY (SUM(points)) DESC) AS rank -- Nice use of built-in functions
-    , clan
-    , SUM(points) AS total_points
-    , COUNT(name) AS total_people
-FROM people
-GROUP BY clan
+SELECT 
+      ROW_NUMBER() OVER (ORDER BY total_points DESC) AS rank,
+      clan,
+      total_points,
+      total_people
+FROM (
+    SELECT 
+          CASE 
+              WHEN clan IS NULL OR clan = '' THEN '[no clan specified]'
+              ELSE clan
+          END AS clan,
+          SUM(points) AS total_points,
+          COUNT(name) AS total_people
+    FROM people
+    GROUP BY CASE 
+                WHEN clan IS NULL OR clan = '' THEN '[no clan specified]'
+                ELSE clan
+             END
+) AS ranked_clans
 ORDER BY total_points DESC;
