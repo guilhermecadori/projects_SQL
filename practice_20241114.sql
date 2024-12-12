@@ -3,9 +3,8 @@
     Write an SQL query to retrieve the top 5 customers who have rented the most movies, 
     excluding customers who have rented at least one movie with an 'NC-17' rating. 
     Subqueries are forbidden to make the task a bit curiouser - you can use select only once
-    Notes:
-        If two or more customers have the same amount of rentals then sort by last name alphabetically.
-    
+    Note: If two or more customers have the same amount of rentals then sort by last name alphabetically.
+
     customer table:
 
     Column       | Type     | Modifiers
